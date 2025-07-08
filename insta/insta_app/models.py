@@ -8,6 +8,8 @@ class UserProfile(AbstractUser):
 
     def __str__(self):
         return f'{self.username},{self.last_name},{self.first_name},{self.bio},{self.image},{self.website}'
+    def get_queryset(self):
+        return UserProfile.objects.filter(id=self.request.user.id)
 
 class Follow(models.Model):
     follower = models.ForeignKey(UserProfile, on_delete=models.CASCADE , related_name='follower')
