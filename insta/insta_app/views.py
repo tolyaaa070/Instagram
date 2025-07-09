@@ -59,6 +59,10 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     fiter_backends = [SearchFilter]
     filterset_fields = ['username']
 
+    def get_queryset(self):
+        return UserProfile.objects.filter(id=self.request.user.id)
+
+
 
 class PostListViewSet(generics.ListAPIView):
     queryset = Post.objects.all()

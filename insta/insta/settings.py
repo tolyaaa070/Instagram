@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'insta_app',
     'drf_spectacular',
     'django_filters',
+    'channels'
 
 ]
 
@@ -66,9 +67,24 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'insta.wsgi.application'
+ASGI_APPLICATION = 'insta.asgi.application'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
 
 
-# Database
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+}
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {

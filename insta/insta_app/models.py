@@ -89,3 +89,14 @@ class SaveItem(models.Model):
 
     def __str__(self):
         return f'{self.post},{self.save}'
+class Chat(models.Model):
+    person = models.ManyToManyField(UserProfile)
+    created_date = models.DateTimeField(auto_now_add=True)
+
+class Message(models.Model):
+    chat = models.ForeignKey(Chat, on_delete=models.CASCADE)
+    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    text = models.TextField(null=True , blank=True)
+    image = models.ImageField(upload_to='image/', null=True , blank=True)
+    video = models.FileField(upload_to='video/', null=True , blank=True)
+    created_date = models.DateTimeField(auto_now_add=True)
